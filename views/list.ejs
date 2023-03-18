@@ -1,38 +1,35 @@
 <%- include('../layouts/header') %>
 
 <div class="container">
-    <div class="heading">CRUD (Listing)</div>
+    <div class="heading"><h3>Basic CRUD (List)</h3></h1>
+        <td><a href="/add" class="btn btn-info">Add</a></td>
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Contact</th>
+                <th colspan="2">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+          <% all_data.map(data => { %>
+          
+      <tr>
+          <td><%= data._id%></td>
+          <td><%= data.name%></td>
+          <td><%= data.email%></td>
+          <td><%= data.contact%></td>
+          <td><a href="/edit/<%= data._id%>" class="btn btn-success">Edit</a></td>
+          <td><a href="/delete/<%= data._id%>" class="btn btn-danger">Delete </a></td>
 
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Contact</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+         <% }) %>
+        </tbody>
+          </table>
+    </div>
+
 
 <%- include('../layouts/footer') %>

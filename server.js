@@ -9,12 +9,12 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const appRouter = require('./routes/app.routes');
-app.use(appRouter);
-
 app.use(bodyparser.urlencoded({
     extended: true
 }))
+const appRouter = require('./routes/app.routes');
+app.use(appRouter);
+
 
 const port = process.env.PORT;
 

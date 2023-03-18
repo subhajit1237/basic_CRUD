@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const connection_string = 'mongodb+srv://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@cluster0.covjhoe.mongodb.net/' + process.env.DB_NAME + '?retryWrites=true&w=majority';
+/*`mongodb+srv://subhajit:<1J1npQE9IwSxLici>@cluster0.ubimcyw.mongodb.net/?retryWrites=true&w=majority`;*/
 // mongodb+srv://subhajit:<password>@cluster0.covjhoe.mongodb.net/?retryWrites=true&w=majority
 
 let option = {

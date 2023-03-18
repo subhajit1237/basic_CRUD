@@ -9,7 +9,7 @@ const AppSchema = mongoose.Schema({
     isDeleted: { type:Boolean, default: false, enum: bool_val },
     status: {type: String, default: "Active", enum: status_enum }
 },{
-    timestamps: true
+    timestamps: true , versionkey: false
 })
 
 module.exports = mongoose.model('user_model',AppSchema);
