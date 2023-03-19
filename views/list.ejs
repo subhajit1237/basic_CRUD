@@ -6,6 +6,7 @@
         <table class="table table-dark">
             <thead>
               <tr>
+                <th scope="col">ID</th>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
@@ -14,10 +15,11 @@
               </tr>
             </thead>
             <tbody>
-          <% all_data.map(data => { %>
+          <% all_data.map((data,index) => { %>
           
       <tr>
-          <td><%= data._id%></td>
+        <td><%= ++index %></td>
+          <td><%= data._id.toString().slice(-5) %></td>
           <td><%= data.name%></td>
           <td><%= data.email%></td>
           <td><%= data.contact%></td>
