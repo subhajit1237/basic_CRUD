@@ -47,22 +47,26 @@ class AppController {
     async insert(req, res){
         try{
             let check_email = await App.find({email: req.body.email});
-            if(check_email.length != 0) {
-                console.log("Email exists");
+            if(!_isEmpty(check_email)) {
+                console.log("Email already exists");
                 res.redirect('/');
             } else {
-                let save_data =await App.create(req.body);
+                let check_contact = await App.find({contact: req.body.contact })
                 // console.log(save_data);
-                
-                if(save_data && save_data.id){
-                    console.log('Data save sucessfully');
+                if(!_isEmpty(check_contact)) {
+                    console.log("Contact already exists");
                     res.redirect('/');
-                }else{
-                    console.log('someting worng');
-                    
+                } else {
+                    let save_data =await App.create(req.body);
+                    if(!_.isEmpty(save_data) && save_data.id){
+                        console.log('Data save sucessfully');
+                        res.redirect('/');
+                    }else{
+                        console.log('someting worng');
+                        
+                    }
                 }
             }
-            
         }catch(err){
             return err;
         }
@@ -76,7 +80,7 @@ class AppController {
 //    async hardDelete(req,res){
 //        try{
 //            let delete_data =await App.findByIdAndDelete(req.params.id)
-//            if(delete_data){
+//            if(!_.isEmpty(delete_data)){
 //             console.log("Data is Deleted");
 //             res.redirect('/')
             
@@ -102,7 +106,7 @@ class AppController {
    async softDelete(req,res){
         try{
             let delete_data =await App.findByIdAndUpdate(req.params.id, {isDeleted : true});
-            if(delete_data){
+            if(!_.isEmpty(delete_data)){
             console.log("Data is Deleted");
             res.redirect('/')
             }else{
@@ -136,20 +140,33 @@ class AppController {
      * @Description To show the updated form
      */
     async update(req, res) {
-        try {
-            let updated_obj = {
-                name: req.body.name,
-                email: req.body.email,
-                contact: req.body.contact
-            }
-            let updated_data = await App.findByIdAndUpdate(req.body.id, updated_obj);
-            // console.log(updated_data);
-            if(updated_data && updated_data._id) {
-                console.log("Data Updated Successfully!!!");
+        try{
+            let check_email = await App.find({ email: req.body.email, _id: { $ne: req.body.id } });
+            if(!_isEmpty(check_email)) {
+                console.log("Email already exists");
                 res.redirect('/');
             } else {
-                console.log("Something went wrong!!!");
-                res.redirect('/');
+                let check_contact = await App.find({contact: req.body.contact, _id: { $ne: req.body.id } })
+                // console.log(save_data);
+                if(!_isEmpty(check_contact)) {
+                    console.log("Contact already exists");
+                    res.redirect('/');
+                } else {
+                    let updated_obj = {
+                        name: req.body.name,
+                        email: req.body.email,
+                        contact: req.body.contact
+                    }
+                    let updated_data =await App.findByIdAndUpdate(req.body.id, updated_obj);
+                    console.log(updated_data);
+                    if(_.isEmpty(updated_data) && updated_data.id){
+                        console.log('Data Update sucessfully');
+                        res.redirect('/');
+                    }else{
+                        console.log('someting worng');
+                        res.render('/');
+                    }
+                }
             }
         } catch (err) {
             return err;
